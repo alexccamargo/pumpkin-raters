@@ -1,25 +1,7 @@
-const {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLInt,
-  GraphQLNonNull,
-  GraphQLFloat
-} = require('graphql');
+import { GraphQLObjectType, GraphQLList, GraphQLInt } from 'graphql';
 
-const {
-  PumpkinType,
-  AuthorType,
-  UserType,
-} = require("../types");
-
-const { 
-	AuthorService, 
-  PumpkinService,
-  UserService,
-} = require('../../services');
-
+import { PumpkinType, AuthorType, UserType } from "../types";
+import { AuthorService, PumpkinService, UserService } from '../../services';
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
@@ -62,5 +44,5 @@ const RootQueryType = new GraphQLObjectType({
     })
   });
 
-  module.exports  = RootQueryType;
+  export default RootQueryType;
   

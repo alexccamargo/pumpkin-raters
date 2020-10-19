@@ -21,4 +21,4 @@ const AuthorService = {
     getAuthors,
 };
 
-module.exports = AuthorService;
+export default AuthorService;

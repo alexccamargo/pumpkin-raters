@@ -12,4 +12,4 @@ const UserService = {
     getUser,
 };
 
-module.exports = UserService;
+export default UserService;

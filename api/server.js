@@ -1,13 +1,13 @@
-const express = require('express')
-const { graphqlHTTP } = require('express-graphql')
+import express from 'express';
+import { graphqlHTTP } from 'express-graphql';
+import Schema from "./gql";
 
 const app = express()
-const gql = require("./gql");
 
 app.use(
   '/graphql',
   graphqlHTTP({
-    schema: gql.schema,
+    schema: Schema,
     graphiql: true
   })
 );

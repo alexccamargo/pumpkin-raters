@@ -1,8 +1,8 @@
-const AuthorService = require('./author-service');
-const PumpkinService = require('./pumpkin-service');
-const UserService = require('./user-service');
+import AuthorService from './author-service';
+import PumpkinService from './pumpkin-service';
+import UserService from './user-service';
 
-module.exports = {
+export {
     AuthorService,
     PumpkinService,
     UserService,

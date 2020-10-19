@@ -1,23 +1,8 @@
-const {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLInt,
-  GraphQLNonNull,
-  GraphQLFloat
-} = require('graphql');
+import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNonNull } from 'graphql';
 
-const {
-  PumpkinType,
-  AuthorType,
-  UserType,
-} = require("../types");
+import { PumpkinType, AuthorType } from "../types";
 
-const { 
-	AuthorService, 
-  PumpkinService,
-} = require('../../services');
+import { AuthorService, PumpkinService } from '../../services';
 
 const RootMutationType = new GraphQLObjectType({
   name: 'Mutation',
@@ -44,4 +29,4 @@ const RootMutationType = new GraphQLObjectType({
   })
 })
 
-module.exports = RootMutationType;
+export default RootMutationType;

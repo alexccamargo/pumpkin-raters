@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "dev": "NODE_ENV=development nodemon server.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,12 @@
     "graphql": "^15.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.5"
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.1",
+    "babel-node": "0.0.1-security",
+    "nodemon": "^2.0.6"
   }
 }

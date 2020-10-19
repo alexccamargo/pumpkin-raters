@@ -40,4 +40,4 @@ const PumpkinService = {
     getPumpkinRate,
 };
 
-module.exports = PumpkinService;
+export default PumpkinService;
