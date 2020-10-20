@@ -2,11 +2,10 @@
   "name": "pumpkin-raters",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
   "scripts": {
-    "build": "babel -d ../build ./src -s",
-    "dev": "NODE_ENV=development nodemon src/server.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf build && mkdir build",
+    "build": "sh build.sh",
+    "start": "node ./build/server.js"
   },
   "engines": {
     "node": "14.9.x"
@@ -20,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/alexccamargo/pumpkin-raters/issues"
   },
-  "homepage": "https://github.com/alexccamargo/pumpkin-raters#readme",
   "dependencies": {
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
@@ -31,8 +29,7 @@
     "@babel/core": "7.12.3",
     "@babel/node": "7.12.1",
     "@babel/preset-env": "7.12.1",
-    "@babel/register": "7.12.1",
-    "babel-node": "0.0.1-security",
-    "nodemon": "2.0.6"
-  }
+    "@babel/register": "7.12.1"
+  },
+  "homepage": "https://github.com/alexccamargo/pumpkin-raters#readme"
 }
