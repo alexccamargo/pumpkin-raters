@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "clean": "rm -rf build && mkdir build",
-    "build": "npm run --prefix api build",
+    "build": "sh build.sh",
     "start": "npm run build && node ./build/server.js"
   },
   "engines": {
