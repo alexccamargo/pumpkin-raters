@@ -1,5 +1,4 @@
 rm -rf build && mkdir build
-
 npm i
 
 cd api
