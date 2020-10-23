@@ -1,4 +1,4 @@
-import User from '../db/models/User';
+import User from '../db/models/user';
 
 const getUser = (id) => User.query().where('id', id).first();
     
