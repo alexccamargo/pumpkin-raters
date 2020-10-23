@@ -1,3 +1,4 @@
 rm -rf build && mkdir build
 
-babel -d ./build ./api/src -s
+cd api
+babel -d ../build ./src -s
