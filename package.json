@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "heroku-prebuild": "npm run api:build",
-    "api:build": "sh build.sh",
+    "clean": "rm -rf build && mkdir build",
+    "build": "npm run clean && cd api && babel -d ../build ./src -s",
     "start": "node ./build/server.js"
   },
   "engines": {
