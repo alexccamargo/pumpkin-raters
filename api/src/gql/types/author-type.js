@@ -12,7 +12,7 @@ const AuthorType = new GraphQLObjectType({
         name: { type: GraphQLNonNull(GraphQLString) },
         pumpkins: {
             type: new GraphQLList(PumpkinType),
-            resolve: (author) => PumpkinService.getPumpkinByAuthor(author.id)
+            resolve: (user) => PumpkinService.getPumpkinByAuthor(user.id)
         },
     })
 });

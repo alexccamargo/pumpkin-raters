@@ -14,7 +14,7 @@ const PumpkinType = new GraphQLObjectType({
         authorId: { type: GraphQLNonNull(GraphQLInt) },
         author: {
             type: AuthorType,
-            resolve: (pumpkin) => AuthorService.getAuthor(pumpkin.authorId)
+            resolve: (pumpkin) => AuthorService.getAuthorByUserId(pumpkin.authorId)
         },
         rate: {
             type: GraphQLFloat,

@@ -41,6 +41,11 @@ const RootQueryType = new GraphQLObjectType({
         },
         resolve: (parent, args) => UserService.getUser(args.id)
       },
+      users: {
+        type: new GraphQLList(UserType),
+        description: 'List of All User',
+        resolve: (parent, args) => UserService.getUsers()
+      },
     })
   });
 

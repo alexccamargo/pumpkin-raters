@@ -1,22 +1,15 @@
-const authors = [
-    { id: 1, name: 'Alex', userId: 1 },
-    { id: 2, name: 'Debora linda', userId: 2 },
-    { id: 3, name: 'Google the best mordedor', userId: 3 }
-]
+import User from '../db/models/user';
 
-const getAuthor = (id) => authors.find(author => author.id === id);
-const getAuthorByUserId = (userId) => authors.find(author => author.userId === userId);
-const getAuthors = () => authors;
-
-const addAuthor = (name, userId) => {
-    const author = { id: authors.length + 1, name, userId }
-    authors.push(author)
-    return author
+const getAuthorByUserId = async (id) => mapUserToAuthor(await User.query().where('id', id).first());
+const getAuthors = async () => (await User.query().whereExists(User.relatedQuery('pumpkins'))).map(mapUserToAuthor);
+const isAuthors = async (id) => !!(await User.query().where('id', id).whereExists(User.relatedQuery('pumpkins').where('userId', id)).first());
+    
+const mapUserToAuthor = (user) => {
+    return user ? ({id: user.id, name: user.username}) : undefined;
 }
 
 const AuthorService = {
-    addAuthor,
-    getAuthor,
+    isAuthors,
     getAuthorByUserId,
     getAuthors,
 };

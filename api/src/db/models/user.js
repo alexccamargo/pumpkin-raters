@@ -16,7 +16,7 @@ class User extends Model {
         modelClass: Pumpkin,
         join: {
           from: 'users.id',
-          to: 'messages.user_id'
+          to: 'pumpkins.userId'
         }
       }
     }
