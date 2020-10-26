@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client';
@@ -103,3 +104,4 @@ export async function onLogout(apolloClient) {
     console.log('%cError on cache reset (logout)', 'color: orange;', e.message);
   }
 }
+/* eslint-enable */
