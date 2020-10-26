@@ -3,6 +3,9 @@ import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNonNull } from 'gr
 import { PumpkinType, UserType } from "../types";
 
 import { UserService, PumpkinService } from '../../services';
+import UserInputType from '../types/user-input-type';
+import PumpkinInputType from '../types/pumpkin-input-type';
+import RateInputType from '../types/rate-input-type';
 
 const RootMutationType = new GraphQLObjectType({
   name: 'Mutation',
@@ -12,30 +15,26 @@ const RootMutationType = new GraphQLObjectType({
       type: PumpkinType,
       description: 'Add a pumpkin',
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) },
-        authorId: { type: GraphQLNonNull(GraphQLInt) }
+        input: { type: PumpkinInputType }
       },
-      resolve: (parent, args) => PumpkinService.addPumpkin(args.name, args.authorId)
+      resolve: (parent, args) => PumpkinService.addPumpkin(args.input.name, args.input.authorId)
     },
     addUser: {
       type: UserType,
       description: 'Add an user',
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) },
-        email: { type: GraphQLNonNull(GraphQLString) },
+        input: { type: UserInputType },
       },
-      resolve: (parent, args) => UserService.addUser(args.name, args.email)
+      resolve: (parent, args) => UserService.addUser(args.input.name, args.input.email)
     },
     ratePumpkin: {
       type: PumpkinType,
       description: 'Add an user',
       args: {
-        pumpkinId: { type: GraphQLNonNull(GraphQLInt) },
-        raterId: { type: GraphQLNonNull(GraphQLInt) },
-        rate: { type: GraphQLNonNull(GraphQLInt) },
+        input: { type: RateInputType }
       },
       resolve: async (parent, args) => {
-        await PumpkinService.ratePumpkin(args.pumpkinId, args.raterId, args.rate)
+        await PumpkinService.ratePumpkin(args.input.pumpkinId, args.input.raterId, args.input.rate)
         return await PumpkinService.getPumpkin(args.pumpkinId);
       }
     }
