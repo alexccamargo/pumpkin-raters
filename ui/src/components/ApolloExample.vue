@@ -1,40 +1,33 @@
 <template>
   <div class="apollo-example">
     <!-- Cute tiny form -->
-    <div class="form">
+    <!-- <div class="form">
       <label for="field-name" class="label">Name</label>
       <input
         v-model="name"
         placeholder="Type a name"
         class="input"
         id="field-name"
-      >
-    </div>
+      />
+    </div> -->
 
     <!-- Apollo watched Graphql query -->
-    <ApolloQuery
-      :query="require('../graphql/HelloWorld.gql')"
-      :variables="{ name }"
-    >
-      <template slot-scope="{ result: { loading, error, data } }">
-        <!-- Loading -->
-        <div v-if="loading" class="loading apollo">Loading...</div>
+    <!--
+    <ApolloQuery :query="require('../graphql/HelloWorld.gql')" :variables="{ name }">
+        <template slot-scope="{ result: { loading, error, data } }">
+            <div v-if="loading" class="loading apollo">Loading...</div>
 
-        <!-- Error -->
-        <div v-else-if="error" class="error apollo">An error occured</div>
+            <div v-else-if="error" class="error apollo">An error occured</div>
 
-        <!-- Result -->
-        <div v-else-if="data" class="result apollo">{{ data.hello }}</div>
+            <div v-else-if="data" class="result apollo">{{ data.hello }}</div>
 
-        <!-- No result -->
-        <div v-else class="no-result apollo">No result :(</div>
-      </template>
+            <div v-else class="no-result apollo">No result :(</div>
+        </template>
     </ApolloQuery>
+    -->
 
     <!-- Tchat example -->
-    <ApolloQuery
-      :query="require('../graphql/Messages.gql')"
-    >
+    <!--  <ApolloQuery :query="require('../graphql/Messages.gql')">
       <ApolloSubscribeToMore
         :document="require('../graphql/MessageAdded.gql')"
         :update-query="onMessageAdded"
@@ -52,8 +45,9 @@
         </template>
       </div>
     </ApolloQuery>
+    -->
 
-    <ApolloMutation
+    <!-- <ApolloMutation
       :mutation="require('../graphql/AddMessage.gql')"
       :variables="{
         input: {
@@ -71,22 +65,64 @@
             v-model="newMessage"
             placeholder="Type a message"
             class="input"
-          >
+          />
+        </form>
+      </template>
+    </ApolloMutation> -->
+
+    <ApolloQuery :query="require('../graphql/Users.gql')">
+      <div slot-scope="{ result: { data } }">
+        <template v-if="data">
+          <div v-for="user of data.users" :key="user.id" class="message">
+            {{ user.username }} : {{ user.email }}
+          </div>
+        </template>
+      </div>
+    </ApolloQuery>
+
+    <ApolloMutation
+      :mutation="require('../graphql/AddUser.gql')"
+      :variables="{
+        input: {
+          email: newEmail,
+          username: newUsername,
+        },
+      }"
+      class="form"
+      @done="(newUsername = ''), (newEmail = '')"
+    >
+      <template slot-scope="{ mutate }">
+        <form v-on:submit.prevent="formValid && mutate()">
+          <label for="field-email">E-mail</label>
+          <input
+            id="field-email"
+            v-model="newEmail"
+            placeholder="E-mail"
+            class="input"
+          />
+          <label for="field-username">Username</label>
+          <input
+            id="field-username"
+            v-model="newUsername"
+            placeholder="Username"
+            class="input"
+          />
+          <input
+            type="submit"
+            value="Submit"
+            class="input"
+          />
         </form>
       </template>
     </ApolloMutation>
 
-    <div class="images">
-      <div
-        v-for="file of files"
-        :key="file.id"
-        class="image-item"
-      >
-        <img :src="`${$filesRoot}/${file.path}`" class="image"/>
+    <!-- <div class="images">
+      <div v-for="file of files" :key="file.id" class="image-item">
+        <img :src="`${$filesRoot}/${file.path}`" class="image" />
       </div>
-    </div>
+    </div> -->
 
-    <div class="image-input">
+    <!-- <div class="image-input">
       <label for="field-image">Image</label>
       <input
         id="field-image"
@@ -94,57 +130,63 @@
         accept="image/*"
         required
         @change="onUploadImage"
-      >
-    </div>
+      />
+    </div> -->
   </div>
 </template>
 
 <script>
-import FILES from '../graphql/Files.gql';
-import UPLOAD_FILE from '../graphql/UploadFile.gql';
+// import FILES from '../graphql/Files.gql';
+// import UPLOAD_FILE from '../graphql/UploadFile.gql';
 
 export default {
   data() {
     return {
       name: 'Anne',
       newMessage: '',
+      newEmail: '',
+      newUsername: '',
     };
   },
 
   apollo: {
-    files: FILES,
+    // files: FILES,
   },
 
   computed: {
     formValid() {
-      return this.newMessage;
+      return this.newEmail && this.newUsername;
     },
   },
 
   methods: {
-    onMessageAdded(previousResult, { subscriptionData }) {
-      return {
-        messages: [
-          ...previousResult.messages,
-          subscriptionData.data.messageAdded,
-        ],
-      };
-    },
-
-    async onUploadImage({ target }) {
-      if (!target.validity.valid) return;
-      await this.$apollo.mutate({
-        mutation: UPLOAD_FILE,
-        variables: {
-          file: target.files[0],
-        },
-        update: (store, { data: { singleUpload } }) => {
-          const data = store.readQuery({ query: FILES });
-          data.files.push(singleUpload);
-          store.writeQuery({ query: FILES, data });
-        },
-      });
-    },
+    // onMessageAdded(previousResult, { subscriptionData }) {
+    //   return {
+    //     messages: [
+    //       ...previousResult.messages,
+    //       subscriptionData.data.messageAdded,
+    //     ],
+    //   };
+    // },
+    // async onUploadImage({ target }) {
+    //   if (!target.validity.valid) return;
+    //   await this.$apollo.mutate({
+    //     mutation: UPLOAD_FILE,
+    //     variables: {
+    //       file: target.files[0],
+    //     },
+    //     update: (store, { data: { singleUpload } }) => {
+    //       const data = store.readQuery({
+    //         query: FILES,
+    //       });
+    //       data.files.push(singleUpload);
+    //       store.writeQuery({
+    //         query: FILES,
+    //         data,
+    //       });
+    //     },
+    //   });
+    // },
   },
 };
 </script>

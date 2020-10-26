@@ -25,7 +25,7 @@ const RootMutationType = new GraphQLObjectType({
       args: {
         input: { type: UserInputType },
       },
-      resolve: (parent, args) => UserService.addUser(args.input.name, args.input.email)
+      resolve: (parent, args) => UserService.addUser(args.input.username, args.input.email)
     },
     ratePumpkin: {
       type: PumpkinType,
